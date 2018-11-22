@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<gaitobot-startup>
+	<substitutions>
+		<input>
+			<substitute find="AONDE" replace="ONDE"/>
+			<substitute find="PASTA" replace="DIRETORIO"/>
+			<substitute find="ATUAL" replace="CORRENTE"/>
+			<substitute find="COMO SABER" replace="COMO SEI"/>
+		</input>
+	</substitutions>
+</gaitobot-startup>
