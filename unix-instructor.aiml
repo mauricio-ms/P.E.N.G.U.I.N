@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<aiml>
+<!--author: msmau-->
+<!--licence: Standard-->
+<!--created with: GaitoBot AIML Editor V2.10.0.42867-->
+
+<category>
+	<pattern></pattern>
+	<template><srai></srai></template>
+</category>
+
+<category>
+	<pattern>COMO SEI *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>ME DIGA *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>QUAL E *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>O *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>MEU *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>A *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>MINHA *</pattern>
+	<template><sr/></template>
+</category>
+
+<category>
+	<pattern>DIRETORIO CORRENTE</pattern>
+	<template><srai>ONDE ESTOU</srai></template>
+</category>
+
+<category>
+	<pattern>ONDE ESTOU</pattern>
+	<template>pwd</template>
+</category>
+
+<category>
+<pattern>WHO IS HE</pattern>
+<template><srai>WHOISHE <get name="he"/></srai></template>
+</category>
+
+<category>
+<pattern>WHOISHE *</pattern>
+<template>He is <get name="he"/>.</template>
+</category>
+
+<category>
+<pattern>WHOISHE UNKNOWN</pattern>
+<template>I don’t know who he is.</template>
+</category>
+
+<category>
+<pattern>KNOCK KNOCK</pattern>
+<template>Who is there?</template>
+</category>
+
+<category>
+<pattern>*</pattern>
+<that>WHO IS THERE</that>
+<template><person/> who?</template>
+</category>
+
+<category>
+<pattern>*</pattern>
+<that>* WHO</that>
+<template>Ha ha very funny, <get name="name"/>.</template>
+</category>
+</aiml>
