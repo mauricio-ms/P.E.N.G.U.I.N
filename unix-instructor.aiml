@@ -1,15 +1,5 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-<!--author: msmau-->
-<!--licence: Standard-->
-<!--created with: GaitoBot AIML Editor V2.10.0.42867-->
-
-<category>
-	<pattern></pattern>
-	<template><srai></srai></template>
-</category>
-
 <category>
 	<pattern>COMO SEI *</pattern>
 	<template><sr/></template>
@@ -51,39 +41,503 @@
 </category>
 
 <category>
+	<pattern>PASTA ATUAL</pattern>
+	<template><srai>ONDE ESTOU</srai></template>
+</category>
+
+<category>
 	<pattern>ONDE ESTOU</pattern>
 	<template>pwd</template>
 </category>
 
 <category>
-<pattern>WHO IS HE</pattern>
-<template><srai>WHOISHE <get name="he"/></srai></template>
+	<pattern>O QUE TEM NO MEU *</pattern>
+	<template>QUAL <star/>?</template>
 </category>
 
 <category>
-<pattern>WHOISHE *</pattern>
-<template>He is <get name="he"/>.</template>
+	<pattern>O QUE TEM NA MINHA *</pattern>
+	<template>QUAL <star/>?</template>
 </category>
 
 <category>
-<pattern>WHOISHE UNKNOWN</pattern>
-<template>I don’t know who he is.</template>
+	<pattern>CORRENTE</pattern>
+	<that>QUAL DIRETORIO</that>
+	<template><srai>O QUE HA POR AQUI</srai></template>
 </category>
 
 <category>
-<pattern>KNOCK KNOCK</pattern>
-<template>Who is there?</template>
+	<pattern>*</pattern>
+	<that>QUAL DIRETORIO</that>
+	<template><srai>O QUE HA POR AQUI</srai> <star/></template>
+</category>
+
+<category>
+	<pattern>O QUE TEM NO MEU DIRETORIO CORRENTE</pattern>
+	<template><srai>O QUE HA POR AQUI</srai></template>
+</category>
+
+<category>
+	<pattern>O QUE TEM NA MINHA PASTA ATUAL</pattern>
+	<template><srai>O QUE HA POR AQUI</srai></template>
+</category>
+
+<category>
+	<pattern>O QUE HA POR AQUI</pattern>
+	<template>ls</template>
+</category>
+
+<category>
+	<pattern>COMO VOU ATE O DIRETORIO</pattern>
+	<template>QUAL DIRETORIO VOCE QUER IR?</template>
+</category>
+
+<category>
+	<pattern>*</pattern>
+	<that>QUAL DIRETORIO VOCE QUER IR</that>
+	<template><srai>COMO VOU ATE O DIRETORIO <star/></srai></template>
+</category>
+
+<category>
+	<pattern>COMO VOU ATE O DIRETORIO *</pattern>
+	<template><srai>PARA ONDE EU VOU</srai> <star/></template>
+</category>
+
+<category>
+	<pattern>PARA ONDE EU VOU</pattern>
+	<template>cd</template>
+</category>
+
+<category>
+	<pattern>COMO VOLTAR</pattern>
+	<template>QUANTOS NIVEIS?</template>
+</category>
+
+<category>
+    <pattern>0</pattern>
+    <that>QUANTOS NIVEIS</that>
+    <template>
+        ESTAS MALUCO?
+    </template>
+</category>
+
+<category>
+    <pattern>NAO</pattern>
+    <that>ESTAS MALUCO</that>
+    <template>
+        OK
+    </template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>ESTAS MALUCO</that>
+    <template>
+        SEMPRE SOUBE
+    </template>
 </category>
 
 <category>
 <pattern>*</pattern>
-<that>WHO IS THERE</that>
-<template><person/> who?</template>
+<that>QUANTOS NIVEIS</that>
+<template>
+  <think><set name="niveis"><star/></set></think>
+  <condition name="niveis">
+    <li>
+        <value>0</value>
+        ESTAS MALUCO?
+    </li>  
+  </condition>
+  <think><set name="count">1</set></think>
+  <think><set name="value">cd ..</set></think>
+  <condition name="count">
+    <li>
+        <value><star/></value>
+        <get name="value"/>
+    </li>
+    <li>
+        <think>
+            <set name="value">
+              <srai>XADD <get name="value"/> XS /...</srai>
+            </set>
+            <set name="count">
+                <map><name>successor</name><get name="count"/></map>
+            </set>
+        </think>
+        <loop/>
+    </li>
+  </condition>
+</template>
 </category>
 
 <category>
-<pattern>*</pattern>
-<that>* WHO</that>
-<template>Ha ha very funny, <get name="name"/>.</template>
+    <pattern>^ CONTEUDO ^ ARQUIVO ^</pattern>
+    <template>VOCE QUER SABER COMO EXIBIR O CONTEUDO DE UM ARQUIVO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER SABER COMO EXIBIR O CONTEUDO DE UM ARQUIVO</that>
+    <template><srai>COMO EXIBIR O CONTEUDO DE UM ARQUIVO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO EXIBIR O CONTEUDO DE UM ARQUIVO</pattern>
+    <template>VOCE QUER EXIBIR SOMENTE AS ULTIMAS LINHAS?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER EXIBIR SOMENTE AS ULTIMAS LINHAS</that>
+    <template>
+        QUANTAS LINHAS?
+    </template>
+</category>
+
+<category>
+    <pattern>*</pattern>
+    <that>QUANTAS LINHAS</that>
+    <template>
+        tail -<star/> nome-arquivo
+    </template>
+</category>
+
+<category>
+    <pattern>NAO</pattern>
+    <that>VOCE QUER EXIBIR SOMENTE AS ULTIMAS LINHAS</that>
+    <template>
+        ENTAO QUER EXIBIR UM DETERMINADO INTERVALO?
+    </template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>ENTAO QUER EXIBIR UM DETERMINADO INTERVALO</that>
+    <template>
+        ME RESPONDA O INTERVALO NO FORMATO inicio fim
+    </template>
+</category>
+
+<category>
+    <pattern>* *</pattern>
+    <that>ME RESPONDA O INTERVALO NO FORMATO inicio fim</that>
+    <template>
+        sed '<star />,<star index="2"/> ! d'
+    </template>
+</category>
+
+<category>
+    <pattern>NAO</pattern>
+    <that>ENTAO QUER EXIBIR UM DETERMINADO INTERVALO</that>
+    <template>
+        cat nome-arquivo
+    </template>
+</category>
+
+<category>
+    <pattern>COMO EXCLUIR UM ARQUIVO</pattern>
+    <template>rm nome-arquivo</template>
+</category>
+
+<category>
+    <pattern>COMO EXIBIR ^ ARQUIVOS ^</pattern>
+    <template>VOCE QUER EXIBIR OS ARQUIVOS DE UM DIRETORIO?</template>
+</category>
+
+<category>
+    <pattern>COMO LISTAR ^ ARQUIVOS ^</pattern>
+    <template>VOCE QUER EXIBIR OS ARQUIVOS DE UM DIRETORIO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER EXIBIR OS ARQUIVOS DE UM DIRETORIO</that>
+    <template><srai>COMO EXIBIR OS ARQUIVOS DE UM DIRETORIO</srai></template>
+</category>
+
+<category>
+    <pattern>NAO</pattern>
+    <that>VOCE QUER EXIBIR OS ARQUIVOS DE UM DIRETORIO</that>
+    <template><srai>ME FACA OUTRA PERGUNTA</srai></template>
+</category>
+
+<category>
+    <pattern>COMO EXIBIR OS ARQUIVOS DE UM DIRETORIO</pattern>
+    <template>ls caminho-diretorio</template>
+</category>
+
+<category>
+    <pattern>^ COMPACTAR ^</pattern>
+    <template>VOCE QUER SABER COMO COMPACTAR UM ARQUIVO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER SABER COMO COMPACTAR UM ARQUIVO</that>
+    <template><srai>COMO COMPACTAR UM ARQUIVO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO COMPACTAR UM ARQUIVO</pattern>
+    <template>gzip nome-arquivo</template>
+</category>
+
+<category>
+    <pattern>^ DESCOMPACTAR ^</pattern>
+    <template>VOCE QUER SABER COMO DESCOMPACTAR UM ARQUIVO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER SABER COMO DESCOMPACTAR UM ARQUIVO</that>
+    <template><srai>COMO DESCOMPACTAR UM ARQUIVO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO DESCOMPACTAR UM ARQUIVO</pattern>
+    <template>gunzip nome-arquivo</template>
+</category>
+
+<category>
+    <pattern>^ CRIAR ^ ARQUIVO ^</pattern>
+    <template>VOCE QUER SABER COMO CRIAR UM ARQUIVO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER SABER COMO CRIAR UM ARQUIVO</that>
+    <template><srai>COMO CRIAR UM ARQUIVO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO CRIAR UM ARQUIVO</pattern>
+    <template>touch nome-arquivo</template>
+</category>
+
+<category>
+    <pattern>^ CRIAR ^ DIRETORIO ^</pattern>
+    <template>VOCE QUER SABER COMO CRIAR UM DIRETORIO?</template>
+</category>
+
+<category>
+    <pattern>^ DIRETORIO</pattern>
+    <that>touch nome-arquivo</that>
+    <template><srai>COMO CRIAR UM DIRETORIO</srai></template>
+</category>
+
+<category>
+    <pattern>^ ARQUIVO</pattern>
+    <that>mkdir nome-diretorio</that>
+    <template><srai>COMO CRIAR UM ARQUIVO</srai></template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER SABER COMO CRIAR UM DIRETORIO</that>
+    <template><srai>COMO CRIAR UM DIRETORIO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO CRIAR UM DIRETORIO</pattern>
+    <template>mkdir nome-diretorio</template>
+</category>
+
+<category>
+    <pattern>^ ENCERRAR ^ PROCESSO ^</pattern>
+    <template>VOCE QUER SABER COMO ENCERRAR UM PROCESSO?</template>
+</category>
+
+<category>
+    <pattern>^ MATAR ^ PROCESSO ^</pattern>
+    <template>VOCE QUER SABER COMO ENCERRAR UM PROCESSO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER SABER COMO ENCERRAR UM PROCESSO</that>
+    <template><srai>COMO ENCERRAR UM PROCESSO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO ENCERRAR UM PROCESSO</pattern>
+    <template>kill -9 id-processo</template>
+</category>
+
+<category>
+    <pattern>^ DESCOBRIR ^ ID ^ PROCESSO ^</pattern>
+    <template>VOCE QUER DESCOBRIR O ID DE UM PROCESSO?</template>
+</category>
+
+<category>
+    <pattern>^ SABER ^ ID ^ PROCESSO ^</pattern>
+    <template>VOCE QUER DESCOBRIR O ID DE UM PROCESSO?</template>
+</category>
+
+<category>
+    <pattern>^ SEI ^ ID ^ PROCESSO ^</pattern>
+    <template>VOCE QUER DESCOBRIR O ID DE UM PROCESSO?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER DESCOBRIR O ID DE UM PROCESSO</that>
+    <template><srai>COMO DESCOBRIR O ID DE UM PROCESSO</srai></template>
+</category>
+
+<category>
+    <pattern>COMO DESCOBRIR O ID DE UM PROCESSO</pattern>
+    <template>ps aux | grep nome-processo</template>
+</category>
+
+<category>
+    <pattern>^ HISTORICO ^ COMANDOS ^</pattern>
+    <template>VOCE QUER DESCOBRIR COMO VER O HISTORICO DE COMANDOS?</template>
+</category>
+
+<category>
+    <pattern>^ ULTIMOS ^ COMANDOS ^</pattern>
+    <template>VOCE QUER DESCOBRIR COMO VER O HISTORICO DE COMANDOS?</template>
+</category>
+
+<category>
+    <pattern>^ COMANDOS ^ ANTIGOS ^</pattern>
+    <template>VOCE QUER DESCOBRIR COMO VER O HISTORICO DE COMANDOS?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER DESCOBRIR COMO VER O HISTORICO DE COMANDOS</that>
+    <template><srai>COMO VER O HISTORICO DE COMANDOS</srai></template>
+</category>
+
+<category>
+    <pattern>COMO VER O HISTORICO DE COMANDOS</pattern>
+    <template>history</template>
+</category>
+
+<category>
+    <pattern>^ DIFERENCIAR ^ ARQUIVOS ^</pattern>
+    <template>VOCE QUER DESCOBRIR COMO COMPARAR DOIS ARQUIVOS?</template>
+</category>
+
+<category>
+    <pattern>^ COMPARAR ^ ARQUIVOS ^</pattern>
+    <template>VOCE QUER DESCOBRIR COMO COMPARAR DOIS ARQUIVOS?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER DESCOBRIR COMO COMPARAR DOIS ARQUIVOS</that>
+    <template><srai>COMO COMPARAR DOIS ARQUIVOS</srai></template>
+</category>
+
+<category>
+    <pattern>COMO COMPARAR DOIS ARQUIVOS</pattern>
+    <template>diff -c nome-arquivo-1 nome-arquivo-2</template>
+</category>
+
+<category>
+    <pattern>^ COMPARAR ^ ARQUIVOS ^</pattern>
+    <template>VOCE QUER DESCOBRIR COMO COMPARAR DOIS ARQUIVOS?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>VOCE QUER DESCOBRIR COMO COMPARAR DOIS ARQUIVOS</that>
+    <template><srai>COMO COMPARAR DOIS ARQUIVOS</srai></template>
+</category>
+
+<category>
+    <pattern>COMO EDITAR UM ARQUIVO DE TEXTO</pattern>
+    <template>
+        <random>
+            <li>nano nome-arquivo</li>
+            <li>vim nome-arquivo</li>
+        </random>
+    </template>
+</category>
+
+
+<category>
+    <pattern>^ DIFICIL ^</pattern>
+    <that>nano nome-arquivo</that>
+    <template>QUER UM EDITOR DE TEXTO COM INTERFACE GRAFICA?</template>
+</category>
+
+<category>
+    <pattern>^ DIFICIL ^</pattern>
+    <that>vim nome-arquivo</that>
+    <template>QUER UM EDITOR DE TEXTO COM INTERFACE GRAFICA?</template>
+</category>
+
+<category>
+    <pattern>SIM</pattern>
+    <that>QUER UM EDITOR DE TEXTO COM INTERFACE GRAFICA</that>
+    <template>gedit nome-arquivo</template>
+</category>
+
+<category>
+    <pattern>NAO</pattern>
+    <that>QUER UM EDITOR DE TEXTO COM INTERFACE GRAFICA</that>
+    <template>ENTAO ESCREVA O SEU EDITOR AMIGUINHO</template>
+</category>
+
+<category>
+    <pattern>VOCE QUER APRENDER ALGO NOVO</pattern>
+    <template>
+        <random>
+            <li>VOCE QUER EXIBIR OS ARQUIVOS DE UM DIRETORIO?</li>
+            <li>VOCE QUER SABER COMO EXIBIR O CONTEUDO DE UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO COMPACTAR UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO DESCOMPACTAR UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO CRIAR UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO CRIAR UM DIRETORIO?</li>
+            <li>VOCE QUER SABER COMO ENCERRAR UM PROCESSO?</li>
+            <li>VOCE QUER DESCOBRIR O ID DE UM PROCESSO?</li>
+            <li>VOCE QUER DESCOBRIR COMO VER O HISTORICO DE COMANDOS?</li>
+            <li>VOCE QUER DESCOBRIR COMO COMPARAR DOIS ARQUIVOS?</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>ME ENSINE ALGO NOVO</pattern>
+    <template>
+        <random>
+            <li>VOCE QUER EXIBIR OS ARQUIVOS DE UM DIRETORIO?</li>
+            <li>VOCE QUER SABER COMO EXIBIR O CONTEUDO DE UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO COMPACTAR UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO DESCOMPACTAR UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO CRIAR UM ARQUIVO?</li>
+            <li>VOCE QUER SABER COMO CRIAR UM DIRETORIO?</li>
+            <li>VOCE QUER SABER COMO ENCERRAR UM PROCESSO?</li>
+            <li>VOCE QUER DESCOBRIR O ID DE UM PROCESSO?</li>
+            <li>VOCE QUER DESCOBRIR COMO VER O HISTORICO DE COMANDOS?</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>*</pattern>
+    <template>
+        <random>
+            <li><srai>ME FACA OUTRA PERGUNTA</srai></li>
+            <li><srai>ME ENSINE ALGO NOVO</srai></li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>ME FACA OUTRA PERGUNTA</pattern>
+    <template>ME FACA OUTRA PERGUNTA</template>
+</category>
+
+<!-- STRING CONCATENATION-->
+<category>
+<pattern>
+XADD * XS *
+</pattern>
+<template><star index="1" /><star index="2" />
+</template>
 </category>
 </aiml>
